@@ -1,0 +1,38 @@
+<!--logs.wxml-->
+<import src="../../html-view/index.wxml" />
+<view class="container">
+  <view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+        <form bindsubmit="formSubmit">
+          <input type="text" bindconfirm="bindKeyFirm" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+        </form>
+        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+      <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+        <icon class="weui-icon-search" type="search" size="14"></icon>
+        <view class="weui-search-bar__text">搜索</view>
+      </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  </view>
+  <view class="weui-panel" style="margin-top: 0px; ">
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text" wx:for="{{questList}}">
+        <view class="weui-media-box__title weui-media-box__title_in-text">{{item.question_title}}</view>
+        <view class="weui-media-box__desc"><template is="html-view" data="{{data: item.question_content}}" /></view>
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">{{item.answerCount}}个回答</view>
+          <view class="weui-media-box__info__meta">{{item.date_time}}</view>
+          <!--<view class="weui-media-box__info__meta weui-media-box__info__meta_extra"></view>-->
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--<block wx:for="{{logs}}" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>-->
+</view>

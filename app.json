@@ -1,0 +1,30 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/my/my",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "大数据论坛",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#b0b0b0",
+    "selectedColor":"#15cc93",
+    "borderStyle": "#b0b0b0",
+    "backgroundColor": "#fff",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "iconPath": "images/imgbar-03.png",
+      "selectedIconPath": "images/imgbarcol-03.png",
+      "text": "主页"
+    }, {
+      "pagePath": "pages/my/my",
+      "iconPath": "images/imgbar-02.png",
+      "selectedIconPath": "images/imgbarcol-02.png",
+      "text": "我的"
+    }]
+  }
+}
