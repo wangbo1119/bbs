@@ -1,11 +1,15 @@
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 const app = getApp()
+const api = require('../../utils/api.js');
 Page({
   data: {
     tabs: ["登录", "注册"],
     activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0
+    sliderLeft: 0,
+    show:true,
+    username:'',
+    useravatar:''
   },
   onLoad: function () {
     var that = this;
@@ -43,13 +47,64 @@ Page({
         }
       })
     }
+    wx.getStorage({
+      key: 'bbsProfile',
+      success: function(res) {
+        if(res.data.roles[0] == "GUEST"){
+          that.setData({
+            show:true,
+            useravatar:res.data.userName.slice(0,1),
+            username:res.data.userName
+          })
+        }else {
+          that.setData({
+            show:false,
+            useravatar:res.data.userName.slice(0,1),
+            username:res.data.userName
+          })
+        }
+      }
+    })
   },
   getUserInfo: function(e) {
-    console.log(111)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  login(e){
+    let data = {username:e.detail.value.name,password:e.detail.value.password}
+    api.login({
+      data,
+      success:(res)=>{
+        wx.setStorage({
+          key:'bbsProfile',
+          data:res.data.item
+        })
+        this.setData({
+          show:false,
+          useravatar:res.data.item.userName.slice(0,1),
+          username:res.data.item.userName
+        })
+      }
+    })
+  },
+  reg(e){
+    let data = {username:e.detail.value.name,password:e.detail.value.password,email:e.detail.value.email,phone:e.detail.value.tel}
+    api.newAdmin({
+      data,
+      success:(res)=>{
+        this.setData({
+          activeIndex: 0
+        })
+      }
+    })
+  },
+  logout(){
+    wx.clearStorage();
+    this.setData({
+      show:true,
     })
   },
   tabClick: function (e) {

@@ -2,7 +2,7 @@
 <script src="../logs/logs.js"></script>
 <view class="container">
   <view class="page__bd">
-    <view class="weui-tab">
+    <view class="weui-tab" wx:if="{{show}}">
       <view class="weui-navbar">
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
@@ -13,36 +13,39 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <form bindsubmit="login">
           <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell weui-cell_input">
             <view class="weui-cell__hd">
               <view class="weui-label">用户名</view>
             </view>
             <view class="weui-cell__bd">
-              <input class="weui-input" placeholder="请输入用户名"/>
+              <input class="weui-input" placeholder="请输入用户名" name="name"/>
             </view>
           </view>
-          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell weui-cell_input">
             <view class="weui-cell__hd">
               <view class="weui-label">密码</view>
             </view>
             <view class="weui-cell__bd">
-              <input class="weui-input" placeholder="请输入密码"/>
+              <input class="weui-input" placeholder="请输入密码" name="password"/>
             </view>
           </view>
-        </view>
-          <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="showTopTips">登录</button>
           </view>
+          <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" form-type="submit">登录</button>
+          </view>
+          </form>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <form bindsubmit="reg">
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                   <view class="weui-label">用户名</view>
                 </view>
                 <view class="weui-cell__bd">
-                  <input class="weui-input" placeholder="请输入用户名"/>
+                  <input class="weui-input" placeholder="请输入用户名" name="name"/>
                 </view>
               </view>
               <view class="weui-cell weui-cell_input">
@@ -50,7 +53,7 @@
                   <view class="weui-label">密码</view>
                 </view>
                 <view class="weui-cell__bd">
-                  <input class="weui-input" placeholder="请输入密码"/>
+                  <input class="weui-input" placeholder="请输入密码" name="password"/>
                 </view>
               </view>
               <view class="weui-cell weui-cell_input">
@@ -58,7 +61,7 @@
                   <view class="weui-label">手机号</view>
                 </view>
                 <view class="weui-cell__bd">
-                  <input class="weui-input" placeholder="请输入手机号"/>
+                  <input class="weui-input" placeholder="请输入手机号" name="tel"/>
                 </view>
               </view>
               <view class="weui-cell weui-cell_input">
@@ -66,14 +69,32 @@
                   <view class="weui-label">邮箱</view>
                 </view>
                 <view class="weui-cell__bd">
-                  <input class="weui-input" placeholder="请输入邮箱"/>
+                  <input class="weui-input" placeholder="请输入邮箱" name="email"/>
                 </view>
               </view>
             </view>
             <view class="weui-btn-area">
-              <button class="weui-btn" type="primary" bindtap="showTopTips">注册</button>
+              <button class="weui-btn" type="primary" bindtap="showTopTips" form-type="submit">注册</button>
             </view>
+           </form>
         </view>
+      </view>
+    </view>
+    <view wx:if="{{!show}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <view class="user-avatar">
+              {{useravatar}}
+            </view>
+          </view>
+          <view class="weui-cell__bd">
+            <view>{{username}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="logout">退出登录</button>
       </view>
     </view>
   </view>

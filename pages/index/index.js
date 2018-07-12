@@ -31,13 +31,10 @@ Page({
   },
   onLoad: function () {
     let that = this;
-    that.login();
     wx.getStorage({
       key: 'bbsProfile',
-      success: function(res) {
-        if(!res){
-
-        };
+      fail: function(res) {
+          that.login();
       }
     })
     this.getForum();

@@ -51,9 +51,12 @@ const getQuestion = (params) => {
 const login = (params) => {
   wxRequest(params, `${apiURL}/session`);
 };
-
+const newAdmin = (params) => {
+  wxRequest(params, `${apiURL}/user/newAdmin`);
+};
 module.exports = {
   getForum,
   getQuestion,
   login,
+  newAdmin
 };
