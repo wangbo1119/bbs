@@ -34,9 +34,6 @@
           <view class="weui-btn-area">
             <button class="weui-btn" type="primary" bindtap="showTopTips">登录</button>
           </view>
-          <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindgetuserinfo="getUserInfo" open-type="getUserInfo">微信登录</button>
-          </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
             <view class="weui-cells weui-cells_after-title">
