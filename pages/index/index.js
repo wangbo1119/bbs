@@ -30,6 +30,16 @@ Page({
 
   },
   onLoad: function () {
+    let that = this;
+    that.login();
+    wx.getStorage({
+      key: 'bbsProfile',
+      success: function(res) {
+        if(!res){
+
+        };
+      }
+    })
     this.getForum();
     if (app.globalData.userInfo) {
       this.setData({
@@ -57,6 +67,8 @@ Page({
         }
       })
     }
+
+
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -75,6 +87,18 @@ Page({
           forumList:res.data.content
         })
     }
+    })
+  },
+  login(){
+    let data = {"username":"3f8bbbfaafda4d3e83e06b689d785e52","password":"3f8bbbfaafda4d3e83e06b689d785e52"}
+    api.login({
+      data,
+      success:(res)=>{
+        wx.setStorage({
+          key:'bbsProfile',
+          data:res.data.item
+        })
+      }
     })
   },
   toList(e){

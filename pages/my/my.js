@@ -1,36 +1,22 @@
-//index.js
-//获取应用实例
+var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 const app = getApp()
-const api = require('../../utils/api.js');
-
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    imgUrls: [
-      '../../images/banner1.jpg',
-      '../../images/banner2.jpg',
-      '../../images/banner3.jpg'
-    ],
-    indicatorDots: true,
-    autoplay: true,
-    interval: 5000,
-    duration: 1000,
-    forumList:[],
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onShow(){
-
+    tabs: ["登录", "注册"],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0
   },
   onLoad: function () {
-    this.getForum();
+    var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        that.setData({
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        });
+      }
+    });
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -59,34 +45,17 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
+    console.log(111)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
   },
-  getForum(){
-    let data ={pageNo: "0", pageSize: "5"};
-    api.getForum({
-      data,
-      success:(res)=>{
-        this.setData({
-          forumList:res.data.content
-        })
-    }
-    })
-  },
-  toList(e){
-    let id = e.currentTarget.dataset.id
-    app.globalData.id=id;
-    wx.switchTab({
-      url:'../logs/logs?id='+id,
-      success: function (e) {
-        var page = getCurrentPages().pop();
-        if (page == undefined || page == null) return;
-        page.onLoad();
-      }
-    })
+  tabClick: function (e) {
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id
+    });
   }
-})
+});

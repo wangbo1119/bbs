@@ -3,20 +3,17 @@ let headerData= {
 
 }
 headerData['Content-Type']= 'application/json';
-headerData['Authorization']='eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzEzNTk5NTcsIm5hbWUiOiJ7XCJpZFwiOjIsXCJuYW1lXCI6XCIzZjhiYmJmYWFmZGE0ZDNlODNlMDZiNjg5ZDc4NWU1MlwiLFwicGFzc3dvcmRcIjpcIiQyYSQxMCRWNjRYeXJxLi5KVTBJenVGSUNWb2ZlRDJ3TlljVEc2VmFsTGExTHYyNzYwYXFEaVdwaWhYNlwiLFwiZW1haWxcIjpcIjEyMzQ1Njc4OTAxQDE2My5jb21cIixcInBob25lXCI6XCIxODYwMDY2MTM1NFwiLFwicm9sZXNcIjpbXCJHVUVTVFwiXX0ifQ.ukGGAAYp6xpMqq7XtGgs_O_JkNVwlKeIePivTC_Fiu4'
 let userData ={};
 wx.getStorage({
-  key: 'key',
+  key: 'bbsProfile',
   success: function(res) {
-    userData = res;
+    userData = res.data;
+      if(userData.token){
+        headerData['Authorization']=userData.token;
+    }
   }
 })
 
-if(userData){
-  if(userData.token){
-    headerData['Authorization']=userData.token;
-  }
-}
 
 const wxRequest = (params, url) => {
   wx.request({
@@ -51,8 +48,8 @@ const getForum = (params) => {
 const getQuestion = (params) => {
   wxRequest(params, `${apiURL}/question/getQuestion`);
 };
-const getExplorePlaceList = (params) => {
-  wxRequest(params, `${apiURL}/destination/v3/`);
+const login = (params) => {
+  wxRequest(params, `${apiURL}/session`);
 };
 const getPlaceInfoByID = (params) => {
   wxRequest(params, `${apiURL}/destination/place/${params.query.type}/${params.query.id}/`);
@@ -79,7 +76,7 @@ const getWaypointReplyByID = (params) => {
 module.exports = {
   getForum,
   getQuestion,
-  getExplorePlaceList,
+  login,
   getPlaceInfoByID,
   getPlacePOIByID,
   getTripInfoByID,

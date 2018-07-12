@@ -1,26 +1,12 @@
-/**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+page,
+.page,
+.page__bd{
+  height: 100%;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.page__bd{
+  padding-bottom: 0;
 }
-.swiper-ai image{
-  width: 100%;
-}
-.swiper-ai swiper{
-  height:240px;
-}
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+.weui-tab__content{
+  padding-top: 60px;
+  text-align: center;
 }
